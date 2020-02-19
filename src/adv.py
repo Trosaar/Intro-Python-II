@@ -2,36 +2,29 @@ from room import Room
 
 # Declare all the rooms
 
-room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+outside = Room("Outside Cave Entrance", "North of you, the cave mount beckons")
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+foyer = Room("Foyer", """Dim light filters in from the south. Dusty passages run north and east.""")
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+overlook = Room("Grand Overlook", """A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm.""")
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
-}
+narrow = Room("Narrow Passage", """The narrow passage bends here from west to north. The smell of gold permeates the air.""")
 
+treasure = Room("Treasure Chamber", """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.""")
+
+locations = [outside, foyer, overlook, narrow, treasure]
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+outside.n_to = foyer
+foyer.s_to = outside
+foyer.n_to = overlook
+foyer.e_to = narrow
+overlook.s_to = foyer
+narrow.w_to = foyer
+narrow.n_to = treasure
+treasure.s_to = narrow
 
 #
 # Main
@@ -51,25 +44,29 @@ room['treasure'].s_to = room['narrow']
 # If the user enters "q", quit the game.
 
 class Adventure:
-    def __init__(self, adventure_name, locations = []):
+    def __init__(self, adventure_name, locations = [], play = True):
         self.adventure_name = adventure_name
         self.locations = locations
+        self.play = play
 
     def __str__(self):
-        return f'\nHello, and welcome to {self.adventure_name}! \n'
+        return f'\nHello, and welcome to {self.adventure_name}! \n enter "Q" at anytime to quit'
 
-my_adventure = Adventure("The beSSt adventure GGamE", [loc for rm, loc in room.items()])
+my_adventure = Adventure("The beSSt adventure GGamE", [loc for loc in locations ])
 
 print(my_adventure)
-start = input('Would you like to play? S for start, Q for quit: ')
+
+while my_adventure.play:
+    print(my_adventure.locations[user_choice])
+    user_choice = input('Would you like to play? S for start, Q for quit: ')
 
 
-if start.upper() == "S":
-    print(my_adventure)
-    print(my_adventure.locations[0])
-    locChoice = input('Where would you like to go? (N, S , E , W)')
+# if start.upper() == "S":
+#     print(my_adventure)
+#     print(my_adventure.locations[0])
+#     locChoice = input('Where would you like to go? (N, S , E , W)')
 
-while start.upper() == "S":
-    print(my_adventure.locations[locChoice])
-    start = input('Would you like to play? S for start, Q for quit: ')
+# while start.upper() == "S":
+#     print(my_adventure.locations[locChoice])
+#     start = input('Would you like to play? S for start, Q for quit: ')
     
