@@ -49,3 +49,27 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+class Adventure:
+    def __init__(self, adventure_name, locations = []):
+        self.adventure_name = adventure_name
+        self.locations = locations
+
+    def __str__(self):
+        return f'\nHello, and welcome to {self.adventure_name}! \n'
+
+my_adventure = Adventure("The beSSt adventure GGamE", [loc for rm, loc in room.items()])
+
+print(my_adventure)
+start = input('Would you like to play? S for start, Q for quit: ')
+
+
+if start.upper() == "S":
+    print(my_adventure)
+    print(my_adventure.locations[0])
+    locChoice = input('Where would you like to go? (N, S , E , W)')
+
+while start.upper() == "S":
+    print(my_adventure.locations[locChoice])
+    start = input('Would you like to play? S for start, Q for quit: ')
+    
